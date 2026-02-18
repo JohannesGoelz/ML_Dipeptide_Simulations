@@ -2,21 +2,45 @@
 \section{Introduction}
 \label{sec:introduction}
 
+\begin{comment}
+Draft:
+- Motivation for the subject
+- Why current methods are not sufficient
+- Image of molecule in waterbox
+- Sota
+- Transferability
+- Image of transferability
+- Our scope
+- The goal
+\end{comment}
 
+% Motivation
 Understanding molecular behavior at the atomistic scale is essential for applications such as drug discovery and materials design. Designing a molecule for a specific function, for example, binding to a target protein or maximizing light absorption in photovoltaic devices, requires knowledge of how that molecule adopts different conformations in its target environment. This, in turn, necessitates sampling from the Boltzmann distribution, which quantifies the probability of observing a given molecular conformation.
 
+
+% Drawbacks of current methods
 In this context, solvent effects play a decisive role. In biomolecular systems, for instance, water is the predominant medium and strongly influences conformational sampling through hydrogen bonding, dielectric screening, and hydrophobic interactions. More generally, the inclusion of solvents can yield Boltzmann distributions that differ significantly from those obtained in vacuum settings, underscoring the importance of accurately accounting for solvation effects across diverse domains. 
 
 However, simulating a single target molecule, such as a drug candidate, in an explicit water box containing thousands of solvent molecules incurs substantial computational cost. Classical implicit solvent models, such as the \gls{gb} approximation, mitigate this by eliminating explicit solvent degrees of freedom. While computationally efficient, these models often sacrifice accuracy relative to fully atomistic descriptions.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{images/solvated_alanine.png}
+    \caption{Dieses Bild zeigt das Miniprotein alanine-dipeptid in Wasser. Zu dem Molekül geören 22 Atome. Die Wasserbox ist quadratisch und hat eine seitenlänge von 2nm und enthält 696 Atome, welche zum Wasser gehören}
+    \label{fig:solvated_alanine}
+\end{figure}
+
+
+% Short related Work / Sota
+% much shorter then in Proposal
 Recent progress in \gls{ml} has opened new avenues for developing more accurate and transferable implicit solvation models. A pioneering ML-based approach was proposed by \citet{machine_learning_implicit_solvation} with ISSNet, which demonstrated the feasibility of learning solvation effects directly. While their study did not address the transferability of the model, subsequent work has made progress toward more generalizable implicit solvation models \cite{katzberger2025rapid, Airas2023, röcken2025predictingsolvationfreeenergies}, although several key challenges remain unresolved.
 
 
 A critical analysis of the current literature on transferable implicit solvation models reveals a significant research gap, particularly concerning their application to macromolecules like proteins. The state-of-the-art can be effectively divided into two domains: models developed for small organic molecules and those targeting proteins.
 
-In the domain of small organic molecules, substantial progress has been made. \citet{katzberger2024general} curated a dataset of over 370,000 molecules (< 500 Da) and demonstrated that a model trained on this data could accurately predict solvation energies for larger, unseen molecules (500-700 Da), indicating a degree of size-transferability to unseen molecules. In subsequent work, they showed that their model architecture could learn the effects of different implicit solvents, although this required training a separate model for each solvent \cite{katzberger2025rapid}. Concurrently, \citet{röcken2025predictingsolvationfreeenergies} developed an implicit solvation model aiming for accuracy comparable to ab initio methods, rather than aligning with classical force field data. Their model, trained on only 375 molecules, surpassed the accuracy of standard generalized Born (GB) models in CHARMM and AMBER on a small test set and showed transferability to novel chemical functional groups. However, they reported a significant increase in the Mean Absolute Error for molecules with more than 14 heavy atoms, suggesting critical scalability limitations.
+% Transferatbiity
 
-In contrast, the development of transferable implicit solvation models for proteins is still in its infancy. A notable study by \citet{Airas2023} trained a model on a small set of six proteins. While the model showed promise by outperforming the baseline GB-Neck2 model for a Chignolin mutant with high sequence identity (80\%), its performance degraded significantly on a mutant with lower sequence identity (70\%). Furthermore, when applied to a system outside its training distribution, an intrinsically disordered peptide (JIP1), the model failed to capture the correct conformational landscape, which the baseline GB model could identify. This highlights a key area for development, as the transferability of current protein-focused models appears to be most effective for systems that share high similarity with the training data.
+
 
 In summary, while implicit solvation models for small drug like molecules are maturing, some approaches may face scalability challenges. For proteins and peptides on the other hand, the central unresolved issue is transferability, as existing models are data-scarce and fail to reliably generalize to new sequences or protein families. From this we derive our central research question:  
 
