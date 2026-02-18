@@ -1,0 +1,11 @@
+
+\section{Data Generation}
+\label{sec:data_generation}
+
+A central component of the project is the generation of large-scale simulation data that can serve as training input for \gls{ml} models. In these simulations, solutes are solvated in a water box, equilibrated, and then propagated over time to obtain representative trajectories. Both coordinates and forces are stored, which allows the resulting datasets to be used in diverse training settings such as force-matching.
+
+To improve sampling efficiency, \gls{remd} \cite{qi2018replica} can be incorporated. By running simulations at multiple temperatures and exchanging configurations, \gls{remd} helps to explore conformational space more thoroughly, especially for flexible solutes. This is important in order to avoid biased datasets that overrepresent only a limited set of conformations.
+
+The overall data pipeline consists of several stages. First, solute structures are prepared and solvated in explicit water boxes. Next, energy minimization and equilibration steps ensure physically meaningful starting points. The Simulations then generate snapshots of the coordinates and forces, which are downsampled and stored in standardized formats. 
+
+The precise scope of data generation in this project is to assemble datasets for model development and benchmarking. While the current focus lies on explicit water with standard force fields, the approach can naturally be extended to other solvents in later stages.
