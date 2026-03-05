@@ -51,6 +51,31 @@ The throughput for our customized \gls{remd} implementation is outlined in Figur
 
 In the end, we did not use REMD for the final data generation, as the computational overhead of running multiple replicas does not justify the improved sampling.
 
+
+\subsection{Production Datasets}
+\label{subsec:production_datasets}
+
+To develop and rigorously evaluate our models, we orchestrated large-scale production simulations across both dipeptides and tetrapeptides. In keeping with the objective of generating clean, comparable snapshots, all baseline equilibration and environment variables were standardized across datasets. Specifically, each solvated system was padded with 1.2\,nm of explicit water and simulated at a constant ambient temperature of 300\,K. Prior to production sampling, every sequence underwent a comprehensive 100\,ns isothermal-isobaric (NPT) equilibration phase to establish appropriate system densities, followed directly by a 100\,ns canonical (NVT) equilibration. Data was then mined uniformly, extracting exactly 2,000,000 frames evenly from each individual production run independent of the simulation length.
+
+Our primary investigation centered on dipeptides, exploring the conformational space of 400 distinct sequences. This cohort was strictly partitioned into a robust 280-peptide training partition and a separate 120-peptide testing partition. Every dipeptide sequence in this collection was simulated continuously for 1\,\textmu s. 
+
+To subsequently interrogate the transferability and predictive capability of our learned representations on larger, more demanding biomolecules, we expanded our data schema with tetrapeptides. The tetrapeptide training set aggregates 1,500 varied sequences, each pushed through a 500\,ns production simulation. For robust benchmarking, we additionally formulated a highly concentrated tetrapeptide test set comprising just 30 strategically selected sequences. To ensure highly faithful reference distributions for test evaluations, these 30 evaluation systems were subjected to extraordinarily deep 5\,\textmu s simulations. A comprehensive breakdown of the structural parameters, runtimes, and scale of each corpus is detailed in Table~\ref{tab:production_datasets}.
+
+\begin{table*}[htbp]
+    \centering
+    \begin{tabular}{l c c r r r r r}
+        \toprule
+        \textbf{Dataset} & \textbf{Temp.} & \textbf{Padding} & \textbf{NPT Eq.} & \textbf{NVT Eq.} & \textbf{Peptides} & \textbf{Sim. Time} & \textbf{Frames} \\
+        \midrule
+        Dipeptides (Train) & 300\,K & 1.2\,nm & 100\,ns & 100\,ns & 280 & 1\,\textmu s & 2,000,000 \\
+        Dipeptides (Test) & 300\,K & 1.2\,nm & 100\,ns & 100\,ns & 120 & 1\,\textmu s & 2,000,000 \\
+        Tetrapeptides (Train) & 300\,K & 1.2\,nm & 100\,ns & 100\,ns & 1,500 & 500\,ns & 2,000,000 \\
+        Tetrapeptides (Test) & 300\,K & 1.2\,nm & 100\,ns & 100\,ns & 30 & 5\,\textmu s & 2,000,000 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Overview of simulation parameters, phase durations, and sequence composition across all primary dataset partitions.}
+    \label{tab:production_datasets}
+\end{table*}
 \subsection{Model Architecture}
 
 \subsection{Simulation Framework}
