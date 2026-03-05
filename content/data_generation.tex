@@ -15,6 +15,42 @@ These structures are subsequently solvated in a TIP3P explicit water box using O
 
 The scope of data generation in this project is to assemble datasets for model development and benchmarking. While the current focus lies on explicit water with standard force fields, the approach can naturally be extended to other solvents in later stages.
 
+
+\subsection{Computational Efficiency}
+\label{subsec:throughput}
+
+To evaluate the computational efficiency of our data generation pipeline, we measured the throughput using a model system consisting of an uncapped tetra-alanine peptide (AAAA). 
+The fully solvated system comprised 1,682 atoms in total (of which 43 atoms were from the solute) surrounded by explicit water molecules with a 1.2~nm padding. 
+All benchmarking runs were executed on a single NVIDIA A100 GPU.
+
+First, we assessed the throughput of conventional simulations at a constant temperature of 300~K (Figure~\ref{fig:throughput_300k}). 
+To maximize GPU utilization, we simulated multiple independent copies of the system concurrently, dispatching each run in isolation via its own dedicated system process. 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{images/throughput_300K.pdf}
+    \caption{Aggregate simulation throughput for independent AAAA systems running concurrently at 300~K on a single NVIDIA A100 GPU.}
+    \label{fig:throughput_300k}
+\end{figure}
+
+We also evaluated using REMD for the data generation.
+
+For the \gls{remd} protocol, we leveraged the \texttt{reform} package \cite{TODO_add_reform_cite} to orchestrate replica swaps. 
+By default, the multi-threaded interface of \texttt{reform} does not support periodic boundary conditions. 
+However, modeling the explicit solvent relies on periodic boundary conditions to avoid surface artifacts. 
+To overcome this limitation, we constructed a custom wrapper around \texttt{reform}'s single-threaded API. 
+By managing a dedicated thread for each replica, we parallelized replica executions while retaining the necessary support for periodic boundary conditions. 
+The throughput for our customized \gls{remd} implementation is outlined in Figure~\ref{fig:throughput_reform}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{images/throughput_reform.pdf}
+    \caption{Throughput of our custom-parallelized \gls{remd} setup using the \texttt{reform} package, evaluated on the uncapped AAAA model system.}
+    \label{fig:throughput_reform}
+\end{figure}
+
+In the end, we did not use REMD for the final data generation, as the computational overhead of running multiple replicas does not justify the improved sampling.
+
 \subsection{Model Architecture}
 
 \subsection{Simulation Framework}
