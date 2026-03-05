@@ -1,6 +1,8 @@
 
-\section{Data Generation}
-\label{sec:data_generation}
+\section{Methods}
+
+\subsection{Data Generation}
+\label{subsec:data_generation}
 
 A central component of the project is the generation of large-scale simulation data that can serve as training input for \gls{ml} models. In these simulations, solutes are solvated in a water box, equilibrated, and then propagated over time to obtain representative trajectories. Both coordinates and forces are stored, which allows the resulting datasets to be used in diverse training settings such as force-matching.
 
@@ -13,4 +15,6 @@ These structures are subsequently solvated in a TIP3P explicit water box using O
 
 The scope of data generation in this project is to assemble datasets for model development and benchmarking. While the current focus lies on explicit water with standard force fields, the approach can naturally be extended to other solvents in later stages.
 
-\subsection{Runtime Measurements}
+\subsection{Model Architecture}
+
+\subsection{Simulation Framework}
