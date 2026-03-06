@@ -81,39 +81,6 @@ To develop and evaluate our models, we orchestrated large-scale production simul
     \label{tab:production_datasets}
 \end{table*}
 
-\begin{table}[htbp]
-    \centering
-    \begin{tabular}{l r r r r}
-        \toprule
-        \textbf{System Length} & \multicolumn{2}{c}{\textbf{Bare Atoms}} & \multicolumn{2}{c}{\textbf{Solvated Atoms}} \\
-        \cmidrule(lr){2-3} \cmidrule(lr){4-5}
-        & \textbf{Mean} & \textbf{Std} & \textbf{Mean} & \textbf{Std} \\
-        \midrule
-        Uncapped Dipeptides & 35.40 & 6.49 & 1,342.34 & 132.48 \\
-        Uncapped Tetrapeptides & 67.80 & 9.05 & 2,326.56 & 395.62 \\
-        Capped Tetrapeptides & 76.80 & 9.05 & 3,323.00 & 427.10 \\
-        Uncapped 6-peptides & 99.15 & 11.88 & 4,445.55 & 713.79 \\
-        Capped 6-peptides & 108.15 & 11.88 & 5,933.49 & 790.54 \\
-        Uncapped 8-peptides & 134.52 & 12.56 & 7,723.17 & 1,088.41 \\
-        Capped 8-peptides & 143.52 & 12.56 & 9,787.23 & 1,147.13 \\
-        Uncapped 10-peptides & 165.05 & 14.70 & 11,966.23 & 1,700.05 \\
-        Capped 10-peptides & 174.05 & 14.70 & 14,777.53 & 1,925.02 \\
-        Uncapped 12-peptides & 199.81 & 15.17 & 17,662.74 & 2,341.03 \\
-        Capped 12-peptides & 208.81 & 15.17 & 21,000.57 & 2,702.88 \\
-        Uncapped 14-peptides & 229.99 & 16.52 & 25,335.56 & 3,437.18 \\
-        Capped 14-peptides & 238.99 & 16.52 & 30,060.92 & 3,884.78 \\
-        Uncapped 16-peptides & 263.59 & 19.24 & 34,124.54 & 4,616.15 \\
-        Capped 16-peptides & 272.59 & 19.24 & 39,431.57 & 5,112.55 \\
-        Uncapped 18-peptides & 297.54 & 18.62 & 44,003.35 & 6,771.39 \\
-        Capped 18-peptides & 306.54 & 18.62 & 49,909.99 & 7,755.23 \\
-        Uncapped 20-peptides & 323.02 & 19.90 & 57,348.40 & 8,121.78 \\
-        Capped 20-peptides & 332.02 & 19.90 & 64,222.33 & 9,220.75 \\
-        \bottomrule
-    \end{tabular}
-    \caption{Mean number of atoms and standard deviations before and after adding a 1.2\,nm explicit TIP3P water padding for varying sequence lengths.}
-    \label{tab:system_sizes}
-\end{table}
-
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\linewidth]{images/scaling_plot.pdf}
