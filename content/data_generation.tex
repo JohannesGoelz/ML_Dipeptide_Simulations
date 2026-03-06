@@ -88,6 +88,8 @@ To develop and evaluate our models, we orchestrated large-scale production simul
     \label{fig:system_scaling}
 \end{figure}
 
+The simulation is a sequential algorithm mainly scaling in the number of atoms in the system. The number of atoms in the explicitly solvated system scales quadratically to the number of atoms in the molecule or the length of the sequence. Figure~\ref{fig:system_scaling} shows exactly that for peptides with and without caps. Using a vacuum model in which the effects of the solvent are not computed explicitly thus scales only linearly in the number of atoms in the peptide / sequence length. Thus using a ML model, which estimates the effects of the water may be more efficient.
+
 
 To generate the tetrapeptide datasets, we used a permutation method inspired by \cite{tan2025amortized} to ensure a perfectly balanced frequency of all 20 standard amino acids.
 
