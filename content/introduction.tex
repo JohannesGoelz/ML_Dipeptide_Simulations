@@ -26,26 +26,15 @@ However, simulating a single target molecule, such as a drug candidate, in an ex
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{images/solvated_alanine.png}
-    \caption{Dieses Bild zeigt das Miniprotein alanine-dipeptid in Wasser. Zu dem Molekül geören 22 Atome. Die Wasserbox ist quadratisch und hat eine seitenlänge von 2nm und enthält 696 Atome, welche zum Wasser gehören}
+    \caption{Alanine dipeptide (22 atoms) solvated in an explicit water environment. The cubic simulation box has a side length of 2,nm and contains 696 solvent atoms (232 water molecules), demonstrating the disproportionately high number of solvent degrees of freedom that drive up the computational cost of fully atomistic simulations}
     \label{fig:solvated_alanine}
 \end{figure}
 
 
-% Short related Work / Sota
-% much shorter then in Proposal
-Recent progress in \gls{ml} has opened new avenues for developing more accurate and transferable implicit solvation models. A pioneering ML-based approach was proposed by \citet{machine_learning_implicit_solvation} with ISSNet, which demonstrated the feasibility of learning solvation effects directly. While their study did not address the transferability of the model, subsequent work has made progress toward more generalizable implicit solvation models for drug like molecules \cite{katzberger2025rapid, Airas2023, röcken2025predictingsolvationfreeenergies}, although several key challenges remain unresolved.
 
+% Related Work / Sota integrated
+To overcome the limitations of classical implicit models, recent developments have leveraged \gls{ml} to refine implicit solvation. \citet{machine_learning_implicit_solvation} were the first to apply \gls{ml} to this domain, employing a \gls{gnn} trained with a force-matching objective to learn solvent effects from explicit solvent simulation data. While their method achieved lower \gls{kl} divergence on molecules like chignolin and alanine dipeptide compared to the baseline \gls{gb} model, its transferability across different systems remained untested.
 
-A critical analysis of the current literature on transferable implicit solvation models reveals a significant research gap, particularly concerning their application to macromolecules like proteins. The state-of-the-art can be effectively divided into two domains: models developed for small organic molecules and those targeting proteins.
+Subsequent approaches have focused on improving generalization and accuracy. One strategy is delta learning \cite{katzberger2024general, katzberger2025rapid}, which trains a \gls{nn} to predict the difference between implicit and explicit solvent results, modifying parameters within a \gls{gb} baseline while preserving computational efficiency. While successful in reproducing free-energy profiles of small organic molecules, this model has not been validated on larger molecules exceeding 700 Da. Another approach, potential contrasting \cite{Airas2023}, refines a pretrained SchNet potential without labeled force data by discriminating between realistic and noise-like conformations. Although it outperformed the \gls{gb} baseline on training proteins, its transferability to mutations with lower sequence identity and intrinsically disordered peptides proved limited. Furthermore, \citet{röcken2025predictingsolvationfreeenergies} introduced ReSolv, which combines vacuum pre-training on \gls{qm} data with solvent refinement for small, drug-like molecules.
 
-% Transferatbiity
-
-
-
-In summary, while implicit solvation models for small drug like molecules are maturing, some approaches may face scalability challenges. For proteins and peptides on the other hand, the central unresolved issue is transferability, as existing models are data-scarce and fail to reliably generalize to new sequences or protein families. From this we derive our central research question:  
-
-\begin{itemize}
-    \item How can we develop a \gls{ml} implicit solvation model that generalizes reliably across diverse peptide and protein sequences as well as structures?
-\end{itemize}
-
-We hypothesize that the inherent modularity of peptides and proteins, which are composed of a limited set of 20 canonical amino acids, provides a solid basis for a \gls{ml} model to learn the fundamental interactions governing solvation from a computationally tractable dataset of small peptides. Furthermore, the combinatorial nature of the peptide domain allows for a systematic evaluation of the implicit solvent model with respect to its transferability to unseen sequences or larger, previously unseen polypeptide chains. Later, we can additionally include drug-like molecules, such that protein-ligand interactions can be accurately modeled.
+In this work we aim to develop a ml-based implicit solvation model for small peptides. This includes a data pipeline to efficiently generate force trajectories of amino acid sequences as well as a Graph Neural Network which is trained and tested on this data.
