@@ -17,9 +17,8 @@ Draft:
 % Motivation
 Understanding molecular behavior at the atomistic scale is essential for applications such as drug discovery and materials design. Designing a molecule for a specific function, for example, binding to a target protein or maximizing light absorption in photovoltaic devices, requires knowledge of how that molecule adopts different conformations in its target environment. This, in turn, necessitates sampling from the Boltzmann distribution, which quantifies the probability of observing a given molecular conformation.
 
-
 % Drawbacks of current methods
-In this context, solvent effects play a decisive role. In biomolecular systems, for instance, water is the predominant medium and strongly influences conformational sampling through hydrogen bonding, dielectric screening, and hydrophobic interactions. More generally, the inclusion of solvents can yield Boltzmann distributions that differ significantly from those obtained in vacuum settings, underscoring the importance of accurately accounting for solvation effects across diverse domains. 
+In this context, solvent effects play a decisive role. In biomolecular systems, for instance, water is the predominant medium and strongly influences conformational sampling through hydrogen bonding, dielectric screening, and hydrophobic interactions. More generally, the inclusion of solvents can yield Boltzmann distributions that differ from those obtained in vacuum settings, underscoring the importance of accurately accounting for solvation effects across diverse domains. 
 
 However, simulating a single target molecule, such as a drug candidate, in an explicit water box containing thousands of solvent molecules incurs substantial computational cost. Classical implicit solvent models, such as the \gls{gb} approximation, mitigate this by eliminating explicit solvent degrees of freedom. While computationally efficient, these models often sacrifice accuracy relative to fully atomistic descriptions.
 
@@ -34,7 +33,7 @@ However, simulating a single target molecule, such as a drug candidate, in an ex
 
 % Short related Work / Sota
 % much shorter then in Proposal
-Recent progress in \gls{ml} has opened new avenues for developing more accurate and transferable implicit solvation models. A pioneering ML-based approach was proposed by \citet{machine_learning_implicit_solvation} with ISSNet, which demonstrated the feasibility of learning solvation effects directly. While their study did not address the transferability of the model, subsequent work has made progress toward more generalizable implicit solvation models \cite{katzberger2025rapid, Airas2023, röcken2025predictingsolvationfreeenergies}, although several key challenges remain unresolved.
+Recent progress in \gls{ml} has opened new avenues for developing more accurate and transferable implicit solvation models. A pioneering ML-based approach was proposed by \citet{machine_learning_implicit_solvation} with ISSNet, which demonstrated the feasibility of learning solvation effects directly. While their study did not address the transferability of the model, subsequent work has made progress toward more generalizable implicit solvation models for drug like molecules \cite{katzberger2025rapid, Airas2023, röcken2025predictingsolvationfreeenergies}, although several key challenges remain unresolved.
 
 
 A critical analysis of the current literature on transferable implicit solvation models reveals a significant research gap, particularly concerning their application to macromolecules like proteins. The state-of-the-art can be effectively divided into two domains: models developed for small organic molecules and those targeting proteins.
